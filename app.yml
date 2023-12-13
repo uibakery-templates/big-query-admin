@@ -1,0 +1,16 @@
+storeItemList: []
+metadata:
+  favicon: ''
+  code: >-
+    <script
+    src="https://cdn.jsdelivr.net/npm/mathjs@12.2.0/lib/browser/math.min.js"></script>
+  title: BigQuery Admin
+  description: ''
+  breakpoints: []
+appSettings:
+  properties:
+    defaultData: '{}'
+  actions: {}
+  gridVersion: 2
+  density: default
+internalType: project

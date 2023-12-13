@@ -1,0 +1,81 @@
+id: '17022772743050.7036565774500352'
+definitionId: selectWithAtomics
+parentSlotId: '17020302244990.15590922884876512'
+styles:
+  xl:
+    gridItem:
+      x: 8
+      y: 0
+      w: 8
+      h: 15
+  xs:
+    gridItem:
+      x: 0
+      y: 0
+      w: 24
+      h: 15
+properties:
+  options:
+    value:
+      - value: option_1
+        title: ''
+        __UIBAKERY__SYSTEM_ID__: '1'
+      - value: option_2
+        title: ''
+        __UIBAKERY__SYSTEM_ID__: '2'
+    dataValue: 'Array.from(Array(10), (_, i) => ({ value: i + 5 }));'
+    withData: true
+  name: selectShortMovingAverage
+  __UIBAKERY__RESPONSIVE__SHOW__CONDITION__CODE__:
+    - xl
+    - xs
+  optionValueKey: value
+  allowResetValue:
+    value: false
+    dataValue: 'true'
+    withData: false
+  withOptionsAutocomplete: false
+  required:
+    value: false
+    dataValue: 'false'
+    withData: false
+  multi: false
+  allowSelectAll:
+    value: false
+    dataValue: 'true'
+    withData: false
+  value: '5'
+  labelConfig:
+    text: Short-term moving average days
+    position: vertical
+    align: left
+  labelWidth: 0
+actions:
+  selectChange:
+    - action: '17020352140930.9703285866059765'
+      paramCode: ''
+      blockPageLoad: false
+      preventDefault: false
+      index: 0
+  init: []
+  focusEvent: []
+  blurEvent: []
+slots:
+  - id: '17022772743050.9097065595942462'
+    name: optionViewTypes
+    children:
+      - id: '17022806619670.4064509822205691'
+        definitionId: atomicNumber
+        parentSlotId: '17022772743050.9097065595942462'
+        styles:
+          xl:
+            visible: true
+        properties:
+          name: atomicNumber
+          prop: value
+          primaryKey: false
+          __UIBAKERY__RESPONSIVE__SHOW__CONDITION__CODE__:
+            - xl
+            - xs
+        index: 0
+        slots: []

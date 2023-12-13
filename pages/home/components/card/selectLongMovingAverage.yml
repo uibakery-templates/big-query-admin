@@ -1,0 +1,72 @@
+id: '17022772766010.029681880196640975'
+definitionId: selectWithAtomics
+parentSlotId: '17020302244990.15590922884876512'
+styles:
+  xl:
+    gridItem:
+      x: 17
+      y: 0
+      w: 7
+      h: 15
+  xs:
+    gridItem:
+      x: 0
+      y: 15
+      w: 24
+      h: 15
+properties:
+  options:
+    value:
+      - value: option_1
+        title: ''
+        __UIBAKERY__SYSTEM_ID__: '1'
+      - value: option_2
+        title: ''
+        __UIBAKERY__SYSTEM_ID__: '2'
+    dataValue: 'Array.from(Array(36), (_, i) => ({ value: i + 15 }));'
+    withData: true
+  name: selectLongMovingAverage
+  __UIBAKERY__RESPONSIVE__SHOW__CONDITION__CODE__:
+    - xl
+    - xs
+  optionValueKey: value
+  withOptionsAutocomplete: false
+  allowResetValue:
+    value: false
+    dataValue: 'true'
+    withData: false
+  value: '15'
+  labelConfig:
+    text: Long-term moving average days
+    position: vertical
+    align: left
+  labelWidth: 0
+actions:
+  selectChange:
+    - action: '17020352140930.9703285866059765'
+      paramCode: ''
+      blockPageLoad: false
+      preventDefault: false
+      index: 0
+  init: []
+  focusEvent: []
+  blurEvent: []
+slots:
+  - id: '17022772766010.39545753743372125'
+    name: optionViewTypes
+    children:
+      - id: '17022806812540.07654378731955958'
+        definitionId: atomicNumber
+        parentSlotId: '17022772766010.39545753743372125'
+        styles:
+          xl:
+            visible: true
+        properties:
+          name: atomicNumber2
+          prop: value
+          primaryKey: false
+          __UIBAKERY__RESPONSIVE__SHOW__CONDITION__CODE__:
+            - xl
+            - xs
+        index: 0
+        slots: []

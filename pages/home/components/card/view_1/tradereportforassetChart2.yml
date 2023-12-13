@@ -1,0 +1,207 @@
+id: '17022807437060.5056540421394622'
+definitionId: chart
+parentSlotId: '17020302244990.72256104749681'
+styles:
+  xl:
+    gridItem:
+      x: 0
+      y: 0
+      w: 24
+      h: 149
+  xs:
+    gridItem:
+      x: 0
+      y: 0
+      w: 24
+      h: 116
+properties:
+  dataset: '{{actions.tradeReportForAsset.data}}'
+  config: >-
+    const movingAverage = (dayCount) => {
+      const { length } = {{actions.tradeReportForAsset.data}};
+      const result = Array(length).fill('-');
+      for (let i = dayCount; i < length; ++i) {
+        const sum = {{actions.tradeReportForAsset.data}}.slice(i - dayCount, i).reduce((acc, { close }) => acc + close, 0);
+        result[i] = Number((sum / dayCount).toFixed(2));
+      }
+      return result;
+    };
+
+
+    const crossOver = (lines) => {
+      const intersections = [];
+
+      for (let i = 0; i < lines.length - 1; ++i) {
+        const current = lines[i];
+
+        for (let k = i + 1; k < lines.length; ++k) {
+          const next = lines[k];
+
+          if (current.length !== next.length) {
+            throw new RangeError();
+          }
+
+          for (let x = 0; x < current.length; ++x) {
+            const lineSegments = [
+              [x, current[x]],
+              [x + 1, current[x + 1]],
+              [x, next[x]],
+              [x + 1, next[x + 1]],
+            ];
+
+            if (lineSegments.some(([, y]) => typeof y != 'number')) {
+              continue;
+            }
+
+            const point = math.intersect(...lineSegments);
+            if (point && x <= point[0] && point[0] <= x + 1) {
+              intersections.push(point);
+            }
+          }
+        }
+      }
+
+      return intersections;
+    };
+
+
+    const movingAverageDays = [{{ui.selectShortMovingAverage.value}},
+    {{ui.selectLongMovingAverage.value}}].map(Number);
+
+
+    const movingAverages = movingAverageDays.map(movingAverage);
+
+
+    const crossOvers = crossOver(movingAverages);
+
+
+    return {
+      title: {
+        text: 'Monthly trading report for ' + {{ui.selectAssetSymbol.value}},
+        textStyle: {
+          fontSize: 12,
+        },
+        padding: 10,
+      },
+      tooltip: {
+        trigger: 'axis',
+        axisPointer: {
+          type: 'cross',
+        },
+      },
+      legend: {
+        top: 15,
+        right: 0,
+      },
+      grid: {
+        left: '2%',
+        right: '4%',
+        bottom: '2%',
+        containLabel: true,
+      },
+      xAxis: [
+        {
+          type: 'category',
+          data: {{actions.tradeReportForAsset.data}}.map(({ date }) => date),
+          boundaryGap: false,
+          axisLine: {
+            onZero: false,
+          },
+          splitLine: {
+            show: false,
+          },
+        },
+        {
+          type: 'value',
+          boundaryGap: false,
+          min: 0,
+          max: {{actions.tradeReportForAsset.data}}.length - 1,
+          axisLabel: {
+            show: false,
+          },
+          axisPointer: {
+            show: false,
+          },
+        },
+      ],
+      yAxis: {
+        scale: true,
+        splitArea: {
+          show: true,
+        },
+      },
+      series: [
+        {
+          name: {{ui.selectAssetSymbol.value}},
+          type: 'candlestick',
+          data: {{actions.tradeReportForAsset.data}}.map(({ open, close, lowest, highest }) => [open, close, lowest, highest]),
+          itemStyle: {
+            color: '#00d93c',
+            color0: '#ec0000',
+            borderColor: '#00da3c',
+            borderColor0: '#008F28',
+          },
+        },
+        ...movingAverages.map((data, index) => ({
+          name: `${movingAverageDays[index]} days moving average`,
+          type: 'line',
+          xAxisIndex: 1,
+          yAxisIndex: 0,
+          data: data.map((y, x) => [x, y]),
+          smooth: false,
+          lineStyle: {
+            opacity: 0.5,
+          },
+        })),
+        {
+          name: `Moving average crossover${crossOvers.length > 1 ? 's' : ''}`,
+          type: 'scatter',
+          xAxisIndex: 1,
+          yAxisIndex: 0,
+          data: crossOvers,
+          emphasis: {
+            disabled: true,
+          },
+          symbol: 'diamond',
+          symbolSize: 14,
+          itemStyle: {
+            color: 'goldenrod',
+            opacity: 1,
+          },
+        },
+      ],
+    };
+  name: tradereportforassetChart2
+  __UIBAKERY__RESPONSIVE__SHOW__CONDITION__CODE__:
+    - xl
+    - xs
+  title: Tradereportforasset
+  type: lineChart
+  structure:
+    - title: Tradereportforasset
+      data: []
+      color: primary
+      xProp: date
+      yProp: open
+      __UIBAKERY__SYSTEM_ID__: '17022807437550.49868042439926685'
+      groupType: day
+      groupFunctionType: count
+  showLoading:
+    value: false
+    dataValue: ''
+    withData: true
+  useJsConfig: echarts
+  containerStyles:
+    withData: false
+    dataValue: |-
+      {
+        padding: 'default',
+        shadow: 'default',
+        border: 'default'
+      }
+    value:
+      padding: none
+      shadow: none
+      border: none
+actions: {}
+slots: []

@@ -1,0 +1,37 @@
+id: '17020614051380.3094747693484534'
+kind: workflow
+name: onInit
+nameConfigured: true
+steps:
+  - id: '17020614128980.9776446166993775'
+    type: customAsyncCode
+    name: code
+    params:
+      - type: asyncCode
+        value: |-
+          const assetSymbols = await {{actions.assetSymbols.trigger()}};
+          {{ui.selectAssetSymbol}}.setValue(assetSymbols[0].assetSymbol);
+          await {{actions.tradeReportForAsset.trigger()}};
+        valueType: interpolatedValue
+        interpolationType: code
+    level: 0
+    fallthroughError: false
+    isChanged: true
+mode: manual
+modeConfigured: true
+parentPageId: '1'
+config:
+  shouldConfirm: false
+  confirmMessage: Are you sure you'd like to proceed with "{{actions.onInit.name}}"?
+  showSuccessToast: false
+  successToast: Action "{{actions.onInit.name}}" successfully executed
+  successToastDuration: '3000'
+  successToastHideByClick: false
+  showErrorToast: true
+  errorToast: Action "{{actions.onInit.name}}" has failed
+  errorToastDuration: '3000'
+  errorToastHideByClick: false
+  delay: '0'
+  runWhenFirstReferenced: true
+  preserveStateOnPageChange: false
+index: 2

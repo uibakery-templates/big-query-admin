@@ -1,0 +1,29 @@
+id: '17022791852200.8410313764067936'
+name: Revenue
+url: revenue
+roleIds: []
+disableInMenu: false
+parentPageId: ''
+index: 1
+slots:
+  - id: '17022791852200.20294567796270035'
+    name: content
+    children:
+      - id: '17022791852210.4579397615289498'
+        definitionId: grid
+        parentSlotId: '17022791852200.20294567796270035'
+        styles: {}
+        properties:
+          name: revenue
+          pageTitle: '{{app.name}} - {{activeRoute.name}}'
+          __UIBAKERY__RESPONSIVE__SHOW__CONDITION__CODE__:
+            - xl
+            - xs
+        index: 0
+        slots:
+          - id: '17022791852210.39142238827209286'
+            name: content
+            children:
+              - components/monthlyrevenueChart.yml
+              - components/chart.yml
+              - components/tradereportforassetChart.yml

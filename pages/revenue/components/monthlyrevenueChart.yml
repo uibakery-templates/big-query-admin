@@ -1,0 +1,171 @@
+id: '17022792029380.16287738740929503'
+definitionId: chart
+parentSlotId: '17022791852210.39142238827209286'
+styles:
+  xl:
+    gridItem:
+      x: 0
+      y: 0
+      w: 17
+      h: 166
+  xs:
+    gridItem:
+      x: 0
+      y: 0
+      w: 24
+      h: 140
+properties:
+  dataset: '{{actions.monthlyRevenue.data}}'
+  config: >-
+    const waterfall = (data) => {
+      const sign = (value) => (value >= 0 ? 'positive' : 'negative');
+
+      const positive = [];
+      const negative = [];
+      const accumulated = [0];
+
+      for (const value of data) {
+        const valueSign = {
+          [sign(value)]: value,
+        };
+        positive.push(valueSign.positive ?? '-');
+        negative.push(valueSign.negative ?? '-');
+
+        accumulated.push(accumulated.at(-1) + value);
+      }
+
+      return {
+        positive,
+        negative,
+        accumulated,
+        stackStrategy: sign(accumulated.at(-1)),
+      };
+    };
+
+
+    const { positive, negative, accumulated, stackStrategy } =
+    waterfall({{actions.monthlyRevenue.data}}.map(({ TradeProfitLoss }) =>
+    TradeProfitLoss));
+
+
+    const barStack = {
+      type: 'bar',
+      stack: 'Total',
+      stackStrategy,
+      labelLayout: {
+        hideOverlap: true,
+      },
+    };
+
+
+    return {
+      title: {
+        text: 'Income/Expenses waterfall',
+        top: '1%',
+        left: '1%',
+        textStyle: {
+          fontSize: 12,
+        },
+      },
+      tooltip: {
+        trigger: 'axis',
+        axisPointer: {
+          type: 'shadow',
+        },
+        formatter: (params) => {
+          const toFixed = (value) => Number(value).toFixed(2);
+
+          const total = params[0] ? `Total: ${toFixed(params[0].value)}<br/>` : '';
+          const param = params[params[1]?.value !== '-' ? 1 : 2];
+          return param && `${total}${param.seriesName}: ${toFixed(param.value)}<br/>${param.name}`;
+        },
+      },
+      legend: {
+        data: ['Expenses', 'Income'],
+        top: 15,
+        right: 0,
+      },
+      grid: {
+        top: '5%',
+        left: '3%',
+        right: '4%',
+        bottom: '3%',
+        containLabel: true,
+      },
+      dataZoom: [
+        {
+          type: 'inside',
+          start: 0,
+          end: 10,
+        },
+        {
+          type: 'slider',
+          showDetail: false,
+          top: '90%',
+          start: 0,
+          end: 10,
+        },
+      ],
+      xAxis: {
+        type: 'category',
+        data: {{actions.monthlyRevenue.data}}.map(({ TradeDate }) => TradeDate),
+        boundaryGap: false,
+      },
+      yAxis: {
+        type: 'value',
+        scale: true,
+      },
+      series: [
+        {
+          name: 'Placeholder',
+          ...barStack,
+          silent: true,
+          itemStyle: {
+            color: 'transparent',
+          },
+          data: accumulated,
+        },
+        {
+          name: 'Income',
+          ...barStack,
+          label: {
+            show: true,
+            position: 'top',
+          },
+          data: positive,
+        },
+        {
+          name: 'Expenses',
+          ...barStack,
+          label: {
+            show: true,
+            position: 'bottom',
+          },
+          data: negative,
+        },
+      ],
+      color: ['green', 'red'],
+    };
+  name: monthlyrevenueChart
+  __UIBAKERY__RESPONSIVE__SHOW__CONDITION__CODE__:
+    - xl
+    - xs
+  title: Monthlyrevenue
+  type: barChart
+  structure:
+    - title: Monthlyrevenue
+      data: []
+      color: primary
+      xProp: TradeDate
+      yProp: TradeProfitLoss
+      __UIBAKERY__SYSTEM_ID__: '17022821483390.4473160477781315'
+      groupType: day
+      groupFunctionType: show_last
+  showLoading:
+    withData: true
+    dataValue: '{{actions.monthlyRevenue.loading}}'
+    value: false
+  lineSmooth: false
+  useJsConfig: echarts
+actions: {}
+slots: []
