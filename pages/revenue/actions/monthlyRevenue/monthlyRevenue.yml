@@ -1,14 +1,14 @@
-id: '17023700841680.6430354606519375'
+id: '17022816996120.6985764948670492'
 kind: workflow
-name: positions
+name: monthlyRevenue
 nameConfigured: true
 steps:
-  - id: '17023700929540.07204446295272127'
+  - id: '17022817057530.2958920967219134'
     type: customSQLQuery
     name: query
     params:
       - type: query
-        value: "SELECT\n\tSides[0].Side as side,\n  COUNT(OrderID) as tradeIdCount\nFROM uibakery_big_query_sample_dataset.trade \nGROUP BY \n\tSide;"
+        value: ./query-query.sql
         valueType: interpolatedValue
         interpolationType: string
       - type: datasourceId
@@ -16,7 +16,7 @@ steps:
         valueType: custom
         mustSelectFirst: true
       - type: preparedQuery
-        value: "SELECT\n\tSides[0].Side as side,\n  COUNT(OrderID) as tradeIdCount\nFROM uibakery_big_query_sample_dataset.trade \nGROUP BY \n\tSide;"
+        value: ./query-preparedQuery.sql
         valueType: interpolatedValue
       - type: preparedQueryParams
         value: []
@@ -45,13 +45,13 @@ parentPageId: '17022791852200.8410313764067936'
 parentId: null
 config:
   shouldConfirm: false
-  confirmMessage: Are you sure you'd like to proceed with "{{actions.positions.name}}"?
+  confirmMessage: Are you sure you'd like to proceed with "{{actions.monthlyRevenue.name}}"?
   showSuccessToast: false
-  successToast: Action "{{actions.positions.name}}" successfully executed
+  successToast: Action "{{actions.monthlyRevenue.name}}" successfully executed
   successToastDuration: '3000'
   successToastHideByClick: false
   showErrorToast: true
-  errorToast: Action "{{actions.positions.name}}" has failed
+  errorToast: Action "{{actions.monthlyRevenue.name}}" has failed
   errorToastDuration: '3000'
   errorToastHideByClick: false
   delay: '0'
@@ -59,4 +59,3 @@ config:
   preserveStateOnPageChange: false
 selected: true
 configured: true
-index: 5

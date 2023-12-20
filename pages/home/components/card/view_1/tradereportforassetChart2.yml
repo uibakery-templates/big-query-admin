@@ -200,8 +200,8 @@ properties:
         border: 'default'
       }
     value:
-      padding: none
-      shadow: none
-      border: none
+      padding: default
+      shadow: default
+      border: default
 actions: {}
 slots: []

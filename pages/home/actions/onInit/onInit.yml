@@ -8,10 +8,7 @@ steps:
     name: code
     params:
       - type: asyncCode
-        value: |-
-          const assetSymbols = await {{actions.assetSymbols.trigger()}};
-          {{ui.selectAssetSymbol}}.setValue(assetSymbols[0].assetSymbol);
-          await {{actions.tradeReportForAsset.trigger()}};
+        value: ./code.js
         valueType: interpolatedValue
         interpolationType: code
     level: 0
@@ -34,4 +31,3 @@ config:
   delay: '0'
   runWhenFirstReferenced: true
   preserveStateOnPageChange: false
-index: 2

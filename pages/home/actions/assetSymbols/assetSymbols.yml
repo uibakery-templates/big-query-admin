@@ -8,11 +8,7 @@ steps:
     name: query
     params:
       - type: query
-        value: |-
-          SELECT DISTINCT
-            Symbol as assetSymbol
-          FROM
-            uibakery_big_query_sample_dataset.trade;
+        value: ./query-query.sql
         valueType: interpolatedValue
         interpolationType: string
       - type: datasourceId
@@ -20,11 +16,7 @@ steps:
         valueType: custom
         mustSelectFirst: true
       - type: preparedQuery
-        value: |-
-          SELECT DISTINCT
-            Symbol as assetSymbol
-          FROM
-            uibakery_big_query_sample_dataset.trade;
+        value: ./query-preparedQuery.sql
         valueType: interpolatedValue
       - type: preparedQueryParams
         value: []
@@ -66,4 +58,3 @@ config:
 selected: true
 configured: true
 parentPageId: '1'
-index: 0
