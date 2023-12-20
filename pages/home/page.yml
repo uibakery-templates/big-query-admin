@@ -1,7 +1,6 @@
 id: '1'
 name: Home
 url: home
-index: 0
 slots:
   - id: '1'
     name: content

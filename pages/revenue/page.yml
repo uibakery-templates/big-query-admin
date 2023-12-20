@@ -4,7 +4,6 @@ url: revenue
 roleIds: []
 disableInMenu: false
 parentPageId: ''
-index: 1
 slots:
   - id: '17022791852200.20294567796270035'
     name: content
